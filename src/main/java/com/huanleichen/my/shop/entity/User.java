@@ -16,6 +16,18 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
     @Override
     public String toString() {
         return "User{" +

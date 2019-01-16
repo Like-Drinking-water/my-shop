@@ -17,28 +17,29 @@ public class LoginController extends HttpServlet  {
 
         String email = req.getParameter("email");
         String passsword = req.getParameter("password");
-        //String remember = req.getParameter("remember");
-        //String autoLogin = req.getParameter("auto-login");
 
-        //System.out.println(remember);
-        //System.out.println(autoLogin);
+        String remember = req.getParameter("remember");
+        String autoLogin = req.getParameter("auto-login");
 
         User user = loginService.login(email, passsword);
 
         //登录成功
-        if (user != null) {
-            resp.sendRedirect("index.jsp");
-            String name = "Login";
-            String value =  session.getId();
-            session.setAttribute("login", user);
-            Cookie cookie = new Cookie(name, value);
-            resp.addCookie(cookie);
+        if (user != null && remember == null && autoLogin == null) {
+            loginService.onlyLogin(user, req, resp);
+        }
+
+        else if (user != null && remember != null && autoLogin == null) {
+           loginService.LoginAndRemember(user, req, resp);
+        }
+
+        else if (user != null && autoLogin != null) {
+            loginService.LoginRememberAndAutoLogin(user, req, resp);
         }
 
         //登录失败
         else {
             req.setAttribute("message", "密码或邮箱错误");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
         }
     }
 }
