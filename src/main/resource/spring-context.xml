@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="springContext" class="com.huanleichen.my.shop.commons.utils.SpringContext" />
     <!-- DAO -->
     <bean id="UserDao" class="com.huanleichen.my.shop.dao.impl.UserDaoImpl"></bean>
     <!-- Service -->

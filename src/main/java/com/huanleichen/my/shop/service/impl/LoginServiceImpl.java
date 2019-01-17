@@ -14,8 +14,7 @@ import java.io.IOException;
 public class LoginServiceImpl implements LoginService {
 
     public User login(String email, String password) {
-        SpringContext context = new SpringContext();
-        UserDao dao = (UserDao) context.getBean("UserDao");
+        UserDao dao = SpringContext.getBean("UserDao");
         User user = dao.getUserByEmailAndPassword(email, password);
         return user;
     }

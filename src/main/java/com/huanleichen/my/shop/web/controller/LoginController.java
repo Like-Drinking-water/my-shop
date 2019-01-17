@@ -11,9 +11,8 @@ import java.io.IOException;
 public class LoginController extends HttpServlet  {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SpringContext context = new SpringContext();
-        LoginService loginService = (LoginService) context.getBean("LoginService");
-        HttpSession session = req.getSession();
+
+        LoginService loginService = SpringContext.getBean("LoginService");
 
         String email = req.getParameter("email");
         String passsword = req.getParameter("password");
