@@ -4,7 +4,9 @@ import com.huanleichen.my.shop.dao.UserDao;
 import com.huanleichen.my.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository(value = "UserDao")
 public class UserDaoImpl implements UserDao {
     private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
