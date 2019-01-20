@@ -1,44 +1,37 @@
 package com.huanleichen.my.shop.web.controller;
 
-import com.huanleichen.my.shop.commons.utils.SpringContext;
 import com.huanleichen.my.shop.entity.User;
 import com.huanleichen.my.shop.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import java.io.IOException;
 
-public class LoginController extends HttpServlet  {
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+@Controller
+public class LoginController {
+    @Autowired
+    LoginService loginService;
 
-        LoginService loginService = SpringContext.getBean("LoginService");
+    @RequestMapping(value = {"", "login"}, method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
 
-        String email = req.getParameter("email");
-        String passsword = req.getParameter("password");
-
-        String remember = req.getParameter("remember");
-        String autoLogin = req.getParameter("auto-login");
-
-        User user = loginService.login(email, passsword);
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String login(@RequestParam(required = true) String email, @RequestParam(required = true) String password) {
+        User user = loginService.login(email, password);
 
         //登录成功
-        if (user != null && remember == null && autoLogin == null) {
-            loginService.onlyLogin(user, req, resp);
-        }
-
-        else if (user != null && remember != null && autoLogin == null) {
-           loginService.LoginAndRemember(user, req, resp);
-        }
-
-        else if (user != null && autoLogin != null) {
-            loginService.LoginRememberAndAutoLogin(user, req, resp);
+        if (user != null) {
+            return "redirect:/main";
         }
 
         //登录失败
         else {
-            req.setAttribute("message", "密码或邮箱错误");
-            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+            return login();
         }
+
     }
 }

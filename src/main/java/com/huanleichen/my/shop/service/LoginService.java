@@ -15,21 +15,4 @@ public interface LoginService {
      */
     public User login(String email, String password);
 
-    /**
-     * 成功登录后，登录操作没有记住密码和自动登录
-     * @param user 登录成功获取到的用户信息
-     */
-    public void onlyLogin(User user, HttpServletRequest request, HttpServletResponse response) throws IOException;
-
-    /**
-     *  成功登录后，登录并记住密码
-     * @param user 登录成功获取到的用户信息
-     */
-    public void LoginAndRemember(User user, HttpServletRequest request, HttpServletResponse response) throws IOException;
-
-    /**
-     * 成功登录后，登录记住密码并自动登录
-     * @param user 登录成功获取到的用户信息
-     */
-    public void LoginRememberAndAutoLogin(User user, HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

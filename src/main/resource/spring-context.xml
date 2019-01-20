@@ -6,7 +6,10 @@
 
     <!-- 采用注解的方式 -->
     <context:annotation-config />
-    <context:component-scan base-package="com.huanleichen.my.shop"/>
+    <context:component-scan base-package="com.huanleichen.my.shop">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
 
 
     <!-- 以下为未采用注解的方式 -->
